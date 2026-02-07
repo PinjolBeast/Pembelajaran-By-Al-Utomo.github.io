@@ -1,0 +1,1282 @@
+<!-- Panduan lengkap CSS untuk pemula dengan contoh praktis dan komentar pembelajaran -->
+<!-- PELAJARAN: CSS lengkap dari selector hingga animasi, dengan komentar edukasi -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Lengkap CSS - Semua Elemen yang Perlu Diketahui</title>
+    <style>
+        /* Reset dan base styling */
+        /* PELAJARAN: CSS reset untuk konsistensi cross-browser */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Navigasi bar */
+        /* PELAJARAN: CSS untuk navigasi horizontal dan responsive */
+        .navbar {
+            background: #2c3e50;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .navbar .logo {
+            color: #ecf0f1;
+            font-size: 1.5em;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 30px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: inline-block;
+        }
+
+        .nav-links li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .nav-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #3498db;
+        }
+
+        .nav-cta {
+            background: #e74c3c !important;
+        }
+
+        .nav-cta:hover {
+            background: #c0392b !important;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .nav {
+            background: #34495e;
+            padding: 0;
+            overflow-x: auto;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .nav-link:hover {
+            background: #2980b9;
+        }
+
+        .section {
+            padding: 40px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .property-group {
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .property-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .property-desc {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .values {
+            background: #e8f4fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .values strong {
+            color: #2c3e50;
+        }
+
+        .demo {
+            background: #f8f9fa;
+            border: 2px dashed #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .demo-box {
+            width: 100px;
+            height: 100px;
+            background: #3498db;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .flex-demo {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .flex-item {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .grid-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .grid-item {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .animation-demo {
+            width: 100px;
+            height: 100px;
+            background: #e74c3c;
+            margin: 20px auto;
+            border-radius: 50%;
+            transition: all 0.5s;
+        }
+
+        .animation-demo:hover {
+            transform: scale(1.2);
+            background: #c0392b;
+        }
+
+        .responsive-demo {
+            background: #9b59b6;
+            color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .navbar {
+                padding: 10px 15px;
+                border-radius: 5px;
+            }
+
+            .navbar .logo {
+                font-size: 1.2em;
+                margin-right: 20px;
+            }
+
+            .nav-links {
+                display: block;
+                margin-top: 10px;
+            }
+
+            .nav-links li {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+
+            .nav-links a {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .container {
+                margin: 10px;
+                border-radius: 5px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .nav {
+                padding: 0 10px;
+            }
+
+            .nav-list {
+                flex-direction: column;
+            }
+
+            .nav-item {
+                min-width: auto;
+            }
+
+            .nav-link {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .section h2 {
+                font-size: 1.8em;
+            }
+
+            .property-group {
+                padding: 15px;
+            }
+
+            .property-title {
+                font-size: 1.2em;
+            }
+
+            .code-example {
+                font-size: 12px;
+                padding: 12px;
+            }
+
+            .demo {
+                padding: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            .demo-box {
+                width: 80px;
+                height: 80px;
+            }
+
+            .flex-demo,
+            .grid-demo {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .flex-item,
+            .grid-item {
+                margin-bottom: 10px;
+            }
+
+            .animation-demo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .responsive-demo {
+                padding: 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigasi bar untuk berpindah antar halaman -->
+    <!-- PELAJARAN: Konsistensi navigasi di semua halaman -->
+    <nav class="navbar">
+        <div class="logo">🎨 CSS Guide</div>
+        <ul class="nav-links">
+            <li><a href="hub.html">Hub</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="basic.html">Basic</a></li>
+            <li><a href="secuirty.html">Security</a></li>
+            <li><a href="app.html">App</a></li>
+            <li><a href="https://wa.me" target="_blank" rel="noopener noreferrer" class="nav-cta">Chat WA</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <div class="header">
+
+            <h1>Panduan Lengkap CSS</h1>
+
+            <p>Semua Elemen yang Perlu Diketahui untuk Pemula</p>
+
+        </div>
+
+        <nav class="nav">
+
+            <ul class="nav-list">
+
+                <li class="nav-item"><a href="#selectors" class="nav-link">Selektor Dasar</a></li>
+
+                <li class="nav-item"><a href="#colors" class="nav-link">Warna & Latar Belakang</a></li>
+
+                <li class="nav-item"><a href="#text" class="nav-link">Properti Teks</a></li>
+
+                <li class="nav-item"><a href="#box-model" class="nav-link">Model Kotak</a></li>
+
+                <li class="nav-item"><a href="#display" class="nav-link">Display & Visibility</a></li>
+
+                <li class="nav-item"><a href="#positioning" class="nav-link">Posisi</a></li>
+
+                <li class="nav-item"><a href="#flexbox" class="nav-link">Flexbox</a></li>
+
+                <li class="nav-item"><a href="#grid" class="nav-link">CSS Grid</a></li>
+
+                <li class="nav-item"><a href="#responsive" class="nav-link">Desain Responsif</a></li>
+
+                <li class="nav-item"><a href="#animations" class="nav-link">Animasi & Transisi</a></li>
+
+            </ul>
+
+        </nav>
+
+        <section id="selectors" class="section">
+
+            <h2>Selektor Dasar</h2>
+
+            <div class="property-group">
+
+                <div class="property-title">Selektor Elemen</div>
+
+                <div class="property-desc">Memilih elemen HTML berdasarkan nama tag.</div>
+
+                <div class="code-example">
+
+/* Selektor elemen - memilih semua elemen p */
+
+p {
+
+    color: blue;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <p>Contoh paragraf dengan warna biru.</p>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Selektor Class</div>
+
+                <div class="property-desc">Memilih elemen berdasarkan atribut class.</div>
+
+                <div class="code-example">
+
+/* Selektor class - memilih elemen dengan class "highlight" */
+
+.highlight {
+
+    background-color: yellow;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <span class="highlight">Teks yang disorot.</span>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Selektor ID</div>
+
+                <div class="property-desc">Memilih elemen unik berdasarkan atribut id.</div>
+
+                <div class="code-example">
+
+/* Selektor ID - memilih elemen dengan id "header" */
+
+#header {
+
+    font-size: 24px;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <h3 id="header">Judul dengan ID</h3>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="colors" class="section">
+
+            <h2>Warna dan Latar Belakang</h2>
+
+            <div class="property-group">
+
+                <div class="property-title">Warna Teks (color)</div>
+
+                <div class="property-desc">Mengubah warna teks elemen.</div>
+
+                <div class="values"><strong>Nilai:</strong> nama warna (red), hex (#ff0000), rgb(255,0,0), hsl(0,100%,50%)</div>
+
+                <div class="code-example">
+
+/* Mengubah warna teks menjadi merah */
+
+p {
+
+    color: red;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <p style="color: red;">Teks berwarna merah.</p>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Latar Belakang (background)</div>
+
+                <div class="property-desc">Mengatur latar belakang elemen.</div>
+
+                <div class="values"><strong>Nilai:</strong> warna, gambar, gradien</div>
+
+                <div class="code-example">
+
+/* Latar belakang dengan gradien */
+
+div {
+
+    background: linear-gradient(to right, #ff0000, #0000ff);
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div style="background: linear-gradient(to right, #ff0000, #0000ff); padding: 20px; color: white;">Gradien latar belakang</div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="text" class="section">
+
+            <h2>Properti Teks</h2>
+
+            <div class="property-group">
+
+                <div class="property-title">Ukuran Font (font-size)</div>
+
+                <div class="property-desc">Mengatur ukuran teks.</div>
+
+                <div class="values"><strong>Nilai:</strong> px, em, rem, %</div>
+
+                <div class="code-example">
+
+/* Ukuran font 20px */
+
+h1 {
+
+    font-size: 20px;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <h1 style="font-size: 20px;">Judul dengan ukuran 20px</h1>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Ketebalan Font (font-weight)</div>
+
+                <div class="property-desc">Mengatur ketebalan teks.</div>
+
+                <div class="values"><strong>Nilai:</strong> normal, bold, 100-900</div>
+
+                <div class="code-example">
+
+/* Teks tebal */
+
+strong {
+
+    font-weight: bold;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <strong>Teks tebal</strong>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Jarak Baris (line-height)</div>
+
+                <div class="property-desc">Mengatur jarak antar baris teks.</div>
+
+                <div class="values"><strong>Nilai:</strong> angka (1.5), px, em</div>
+
+                <div class="code-example">
+
+/* Jarak baris 1.5 */
+
+p {
+
+    line-height: 1.5;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <p style="line-height: 1.5;">Paragraf dengan jarak baris 1.5. Ini membuat teks lebih mudah dibaca dengan memberikan ruang yang cukup antara baris.</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="box-model" class="section">
+
+            <h2>Model Kotak (Box Model)</h2>
+
+            <div class="property-group">
+
+                <div class="property-title">Margin</div>
+
+                <div class="property-desc">Ruang di luar border elemen.</div>
+
+                <div class="values"><strong>Nilai:</strong> px, em, auto</div>
+
+                <div class="code-example">
+
+/* Margin 10px di semua sisi */
+
+div {
+
+    margin: 10px;
+
+}
+
+/* Margin berbeda untuk setiap sisi */
+
+div {
+
+    margin-top: 10px;
+
+    margin-right: 20px;
+
+    margin-bottom: 10px;
+
+    margin-left: 20px;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div style="margin: 20px; background: #f0f0f0; padding: 10px;">Kotak dengan margin 20px</div>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Padding</div>
+
+                <div class="property-desc">Ruang di dalam border elemen.</div>
+
+                <div class="values"><strong>Nilai:</strong> px, em, %</div>
+
+                <div class="code-example">
+
+/* Padding 15px di semua sisi */
+
+div {
+
+    padding: 15px;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div style="padding: 15px; background: #e8f4fd; border: 1px solid #3498db;">Kotak dengan padding 15px</div>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Border</div>
+
+                <div class="property-desc">Garis tepi elemen.</div>
+
+                <div class="values"><strong>Nilai:</strong> width style color (contoh: 2px solid black)</div>
+
+                <div class="code-example">
+
+/* Border solid 2px hitam */
+
+div {
+
+    border: 2px solid black;
+
+}
+
+/* Border radius untuk sudut melengkung */
+
+div {
+
+    border-radius: 10px;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div style="border: 2px solid black; border-radius: 10px; padding: 10px;">Kotak dengan border dan border-radius</div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="display" class="section">
+
+            <h2>Display dan Visibility</h2>
+
+            <div class="property-group">
+
+                <div class="property-title">Display</div>
+
+                <div class="property-desc">Mengatur bagaimana elemen ditampilkan.</div>
+
+                <div class="values"><strong>Nilai:</strong> block, inline, inline-block, none, flex, grid</div>
+
+                <div class="code-example">
+
+/* Elemen block - mengambil lebar penuh */
+
+div {
+
+    display: block;
+
+}
+
+/* Elemen inline - hanya mengambil ruang yang dibutuhkan */
+
+span {
+
+    display: inline;
+
+}
+
+/* Sembunyikan elemen */
+
+.hidden {
+
+    display: none;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div style="display: block; background: #f8f9fa; padding: 10px; margin: 5px;">Elemen block</div>
+
+                    <span style="display: inline; background: #e8f4fd; padding: 10px; margin: 5px;">Elemen inline</span>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Visibility</div>
+
+                <div class="property-desc">Mengatur visibilitas elemen tanpa menghapusnya dari layout.</div>
+
+                <div class="values"><strong>Nilai:</strong> visible, hidden</div>
+
+                <div class="code-example">
+
+/* Sembunyikan elemen tapi tetap ada di layout */
+
+.invisible {
+
+    visibility: hidden;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div style="visibility: hidden; background: #f0f0f0; padding: 10px;">Elemen tersembunyi (masih mengambil ruang)</div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="positioning" class="section">
+
+            <h2>Posisi</h2>
+
+            <div class="property-group">
+
+                <div class="property-title">Position</div>
+
+                <div class="property-desc">Mengatur posisi elemen.</div>
+
+                <div class="values"><strong>Nilai:</strong> static, relative, absolute, fixed, sticky</div>
+
+                <div class="code-example">
+
+/* Posisi relatif - relatif terhadap posisi normal */
+
+.relative {
+
+    position: relative;
+
+    top: 10px;
+
+    left: 20px;
+
+}
+
+/* Posisi absolut - relatif terhadap parent yang diposisikan */
+
+.absolute {
+
+    position: absolute;
+
+    top: 0;
+
+    right: 0;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div style="position: relative; background: #f8f9fa; padding: 20px; margin: 20px 0;">
+
+                        Kotak relatif
+
+                        <div style="position: absolute; top: 0; right: 0; background: #3498db; color: white; padding: 5px;">Absolut</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Z-index</div>
+
+                <div class="property-desc">Mengatur urutan stacking elemen.</div>
+
+                <div class="values"><strong>Nilai:</strong> angka (bilangan bulat)</div>
+
+                <div class="code-example">
+
+/* Elemen dengan z-index lebih tinggi akan di atas */
+
+.front {
+
+    z-index: 10;
+
+}
+
+.back {
+
+    z-index: 1;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div style="position: relative;">
+
+                        <div style="position: absolute; background: red; width: 50px; height: 50px; z-index: 1;">Belakang</div>
+
+                        <div style="position: absolute; background: blue; width: 50px; height: 50px; left: 20px; top: 20px; z-index: 10;">Depan</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="flexbox" class="section">
+
+            <h2>Flexbox</h2>
+
+            <div class="property-group">
+
+                <div class="property-title">Display: Flex</div>
+
+                <div class="property-desc">Mengaktifkan flexbox pada container.</div>
+
+                <div class="code-example">
+
+/* Container flex */
+
+.container {
+
+    display: flex;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div class="flex-demo">
+
+                        <div class="flex-item">Item 1</div>
+
+                        <div class="flex-item">Item 2</div>
+
+                        <div class="flex-item">Item 3</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Justify-content</div>
+
+                <div class="property-desc">Mengatur penyebaran item secara horizontal.</div>
+
+                <div class="values"><strong>Nilai:</strong> flex-start, center, flex-end, space-between, space-around</div>
+
+                <div class="code-example">
+
+/* Item rata tengah */
+
+.container {
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Align-items</div>
+
+                <div class="property-desc">Mengatur penyebaran item secara vertikal.</div>
+
+                <div class="values"><strong>Nilai:</strong> flex-start, center, flex-end, stretch</div>
+
+                <div class="code-example">
+
+/* Item rata tengah vertikal */
+
+.container {
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="grid" class="section">
+
+            <h2>CSS Grid</h2>
+
+            <div class="property-group">
+
+                <div class="property-title">Display: Grid</div>
+
+                <div class="property-desc">Mengaktifkan grid pada container.</div>
+
+                <div class="code-example">
+
+/* Container grid */
+
+.container {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div class="grid-demo">
+
+                        <div class="grid-item">1</div>
+
+                        <div class="grid-item">2</div>
+
+                        <div class="grid-item">3</div>
+
+                        <div class="grid-item">4</div>
+
+                        <div class="grid-item">5</div>
+
+                        <div class="grid-item">6</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Grid-template-columns</div>
+
+                <div class="property-desc">Mendefinisikan kolom grid.</div>
+
+                <div class="values"><strong>Nilai:</strong> ukuran kolom (px, fr, %)</div>
+
+                <div class="code-example">
+
+/* 3 kolom dengan ukuran sama */
+
+.container {
+
+    grid-template-columns: 1fr 1fr 1fr;
+
+}
+
+/* Kolom dengan ukuran berbeda */
+
+.container {
+
+    grid-template-columns: 200px 1fr 200px;
+
+}
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="responsive" class="section">
+
+            <h2>Desain Responsif</h2>
+
+            <div class="property-group">
+
+                <div class="property-title">Media Queries</div>
+
+                <div class="property-desc">Mengubah style berdasarkan ukuran layar.</div>
+
+                <div class="code-example">
+
+/* Untuk layar kecil (ponsel) */
+
+@media (max-width: 768px) {
+
+    .container {
+
+        padding: 10px;
+
+    }
+
+    h1 {
+
+        font-size: 24px;
+
+    }
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div class="responsive-demo">
+
+                        Ubah ukuran jendela browser untuk melihat efek responsif!
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="animations" class="section">
+
+            <h2>Animasi dan Transisi</h2>
+
+            <div class="property-group">
+
+                <div class="property-title">Transition</div>
+
+                <div class="property-desc">Membuat perubahan properti menjadi halus.</div>
+
+                <div class="code-example">
+
+/* Transisi pada hover */
+
+.box {
+
+    background: blue;
+
+    transition: background 0.5s;
+
+}
+
+.box:hover {
+
+    background: red;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div class="animation-demo"></div>
+
+                    <p>Arahkan kursor ke lingkaran di atas untuk melihat transisi!</p>
+
+                </div>
+
+            </div>
+
+            <div class="property-group">
+
+                <div class="property-title">Animation</div>
+
+                <div class="property-desc">Membuat animasi kustom.</div>
+
+                <div class="code-example">
+
+/* Definisi animasi */
+
+@keyframes bounce {
+
+    0% { transform: translateY(0); }
+
+    50% { transform: translateY(-20px); }
+
+    100% { transform: translateY(0); }
+
+}
+
+/* Menggunakan animasi */
+
+.bounce {
+
+    animation: bounce 1s infinite;
+
+}
+
+                </div>
+
+                <div class="demo">
+
+                    <div style="width: 50px; height: 50px; background: green; margin: 20px auto; animation: bounce 1s infinite;"></div>
+
+                    <p>Lingkaran hijau di atas menggunakan animasi bounce!</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!-- Halaman pembelajaran dasar HTML, CSS, dan JavaScript untuk pemula -->
+<!-- PELAJARAN: Struktur HTML dasar, CSS inline, JavaScript events, dan interaktivitas -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelajaran Dasar HTML & CSS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Page-specific styles for basic.html */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            background: #f8f9fa;
+        }
+
+        .code-example {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .interactive {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi bar untuk berpindah antar halaman -->
+    <!-- PELAJARAN: Navigasi konsisten untuk user experience -->
+    <nav class="navbar">
+        <div class="logo">📚 Basic</div>
+        <ul class="nav-links">
+            <li><a href="hub.html">Hub</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="css-guide.html">CSS Guide</a></li>
+            <li><a href="secuirty.html">Security</a></li>
+            <li><a href="app.html">App</a></li>
+            <li><a href="https://wa.me" target="_blank" rel="noopener noreferrer" class="nav-cta">Chat WA</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>🌟 Pembelajaran Dasar HTML & CSS</h1>
+
+        <div class="section">
+            <h2>Apa itu HTML?</h2>
+            <p>HTML (HyperText Markup Language) adalah bahasa markup untuk membuat struktur halaman web. Bayangkan seperti kerangka rumah - HTML menyediakan fondasi, sementara CSS dan JavaScript menambah estetika dan interaktivitas.</p>
+
+            <div class="code-example">
+<!DOCTYPE html><br>
+<html><br>
+&nbsp;&nbsp;<head></head><br>
+&nbsp;&nbsp;<body></body><br>
+</html>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Elemen HTML Dasar</h2>
+            <h3>Heading (Judul)</h3>
+            <p>Heading digunakan untuk judul dengan berbagai tingkatan:</p>
+            <h1>Ini H1 - Paling Besar</h1>
+            <h2>Ini H2 - Sedikit Lebih Kecil</h2>
+            <h3>Ini H3 - Masih Lebih Kecil</h3>
+
+            <h3>Paragraph (Paragraf)</h3>
+            <p>Ini adalah paragraf. Paragraf digunakan untuk teks panjang yang terbaca.</p>
+
+            <h3>Links (Tautan)</h3>
+            <p>Klik link di bawah untuk melihat Google:</p>
+            <a href="https://www.google.com" target="_blank">Kunjungi Google</a>
+        </div>
+
+        <div class="section">
+            <h2>Apa itu CSS?</h2>
+            <p>CSS (Cascading Style Sheets) adalah bahasa untuk mengatur tampilan HTML. Tanpa CSS, halaman web akan terlihat sangat sederhana dan tidak menarik.</p>
+
+            <div class="code-example">
+/* CSS untuk mengubah warna teks */<br>
+h1 { color: blue; }<br>
+/* CSS untuk background */<br>
+body { background-color: lightgray; }
+            </div>
+        </div>
+
+        <div class="interactive">
+            <h2>🖱️ Area Interaktif - Coba JavaScript!</h2>
+            <p>Klik tombol di bawah untuk melihat JavaScript bekerja:</p>
+
+            <button onclick="ubahWarna()">Ubah Warna Background</button>
+            <button onclick="tampilkanAlert()">Tampilkan Pesan</button>
+            <button onclick="hitungAngka()">Hitung 5 + 3</button>
+
+            <br><br>
+            <input type="text" id="namaInput" placeholder="Masukkan nama Anda">
+            <button onclick="sapaPengguna()">Sapa Saya!</button>
+
+            <p id="hasilOutput">Hasil akan muncul di sini...</p>
+        </div>
+
+        <div class="section">
+            <h2>Kenapa Kita Perlu JavaScript?</h2>
+            <p>HTML dan CSS membuat halaman web statis. JavaScript menambah interaktivitas - seperti tombol yang bisa diklik, form yang bisa disubmit, dan konten yang berubah secara dinamis.</p>
+
+            <p><strong>Pertanyaan untuk Anda:</strong> Bayangkan website tanpa JavaScript - apa yang tidak bisa Anda lakukan?</p>
+        </div>
+
+        <div class="section">
+            <h2>Struktur File Web</h2>
+            <ul>
+                <li><strong>HTML:</strong> Struktur dan konten</li>
+                <li><strong>CSS:</strong> Styling dan layout</li>
+                <li><strong>JavaScript:</strong> Interaktivitas dan logika</li>
+            </ul>
+
+            <p><strong>Analoginya seperti:</strong> HTML = kerangka rumah, CSS = cat dan dekorasi, JavaScript = listrik dan peralatan yang membuat rumah "hidup".</p>
+        </div>
+    </div>
+
+    <!-- Link ke file JavaScript eksternal -->
+    <script src="basic.js"></script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!-- Ini adalah file HTML lengkap untuk belajar tentang keamanan di web -->
+<!-- PEMBELAJARAN KEAMANAN WEB: Dari dasar hingga praktik terbaik -->
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelajaran Keamanan Web - Lengkap untuk Pemula</title>
+
+    <!-- Meta keamanan dasar -->
+    <!-- 1. Referrer Policy: Melindungi privasi jalur akses pengunjung -->
+    <!-- Ini seperti menyembunyikan dari mana pengunjung datang agar privasi terjaga -->
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <!-- 2. CSP (Content Security Policy) Dasar: -->
+    <!-- Instruksi agar browser hanya menjalankan skrip dari website sendiri ('self') -->
+    <!-- Ini mencegah kode jahat dari luar masuk ke halaman kita -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+
+    <!-- 3. Subresource Integrity (SRI): -->
+    <!-- Memastikan file dari luar (CDN) tidak disisipi virus oleh hacker di tengah jalan -->
+    <!-- Seperti memeriksa cap jempol file agar tidak diganti orang jahat -->
+    <link rel="stylesheet" href="https://site-lain.com"
+          integrity="sha384-HASH_KODE_DISINI" crossorigin="anonymous">
+
+    <!-- 4. Permission Policy: Mencegah akses tidak sah ke kamera, mikrofon, lokasi -->
+    <!-- Ini seperti mengunci pintu agar tidak ada yang masuk tanpa izin -->
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
+    <!-- CSS untuk styling halaman keamanan -->
+    <style>
+        /* Reset dan base styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigasi bar */
+        .navbar {
+            background: #1a252f;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .navbar .logo {
+            color: #ecf0f1;
+            font-size: 1.5em;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 30px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: inline-block;
+        }
+
+        .nav-links li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .nav-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #3498db;
+        }
+
+        .nav-cta {
+            background: #e74c3c !important;
+        }
+
+        .nav-cta:hover {
+            background: #c0392b !important;
+        }
+
+        /* Container utama */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        /* Konten utama */
+        .content {
+            padding: 40px;
+        }
+
+        /* Section untuk setiap topik keamanan */
+        .security-section {
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .security-section h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .security-section h2::before {
+            content: "🔒";
+            margin-right: 10px;
+        }
+
+        .security-section p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        /* Kode contoh */
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            border-left: 4px solid #3498db;
+        }
+
+        /* Tips keamanan */
+        .security-tip {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .security-tip strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Warning */
+        .security-warning {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        /* Demo interaktif */
+        .demo {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .demo button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+
+        .demo button:hover {
+            background: #c0392b;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: block;
+                margin-top: 10px;
+            }
+
+            .navbar .nav-links li {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+
+            .container {
+                margin: 10px;
+                border-radius: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigasi bar untuk berpindah antar halaman -->
+    <nav class="navbar">
+        <div class="logo">🔒 Security Hub</div>
+        <ul class="nav-links">
+            <li><a href="hub.html">Hub</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="basic.html">Basic</a></li>
+            <li><a href="css-guide.html">CSS Guide</a></li>
+            <li><a href="app.html">App</a></li>
+            <li><a href="https://wa.me" target="_blank" rel="noopener noreferrer" class="nav-cta">Chat WA</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Pembelajaran Keamanan Web</h1>
+            <p>Lengkap untuk Pemula - Dari Dasar hingga Praktik Terbaik</p>
+        </div>
+
+        <div class="content">
+            <!-- Pengenalan Keamanan Web -->
+            <div class="security-section">
+                <h2>Apa itu Keamanan Web?</h2>
+                <p>Keamanan web adalah praktik melindungi website dari ancaman seperti hacking, malware, dan serangan cyber. Tanpa keamanan yang baik, data pengguna bisa dicuri atau website bisa diretas.</p>
+
+                <div class="security-tip">
+                    <strong>💡 Tips Penting:</strong>
+                    Keamanan web bukan hanya untuk website besar. Setiap website, bahkan yang sederhana, perlu dilindungi agar aman digunakan.
+                </div>
+            </div>
+
+            <!-- HTTPS dan SSL -->
+            <div class="security-section">
+                <h2>HTTPS dan Sertifikat SSL</h2>
+                <p>HTTPS (HyperText Transfer Protocol Secure) adalah versi aman dari HTTP. SSL/TLS sertifikat mengenkripsi data yang dikirim antara browser dan server.</p>
+
+                <div class="code-example">
+<!-- Cara mendapatkan SSL gratis dengan Let's Encrypt -->
+<!-- 1. Install Certbot -->
+<!-- 2. Jalankan perintah: certbot --nginx -->
+<!-- 3. Browser akan menampilkan ikon gembok hijau -->
+                </div>
+
+                <div class="security-warning">
+                    <strong>⚠️ Peringatan:</strong>
+                    Jangan pernah kirim data sensitif (password, kartu kredit) melalui HTTP biasa. Selalu gunakan HTTPS!
+                </div>
+            </div>
+
+            <!-- SQL Injection -->
+            <div class="security-section">
+                <h2>SQL Injection - Ancaman Umum</h2>
+                <p>SQL Injection terjadi ketika hacker memasukkan kode SQL berbahaya ke dalam form input. Ini bisa menghapus atau mencuri data dari database.</p>
+
+                <div class="code-example">
+/* Contoh kode rentan SQL Injection (JANGAN DIGUNAKAN!) */
+$query = "SELECT * FROM users WHERE username = '" . $_POST['username'] . "'";
+
+/* Cara aman menggunakan Prepared Statements */
+$stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+$stmt->execute([$_POST['username']]);
+                </div>
+
+                <div class="demo">
+                    <h3>Demo: Coba Input Berbahaya</h3>
+                    <input type="text" id="sqlInput" placeholder="Masukkan input (contoh: ' OR '1'='1)">
+                    <button onclick="checkSQL()">Periksa Input</button>
+                    <p id="sqlResult"></p>
+                </div>
+            </div>
+
+            <!-- XSS (Cross-Site Scripting) -->
+            <div class="security-section">
+                <h2>XSS (Cross-Site Scripting)</h2>
+                <p>XSS terjadi ketika hacker memasukkan script berbahaya ke dalam website yang ditampilkan kepada pengguna lain. Ini bisa mencuri cookie atau mengubah tampilan halaman.</p>
+
+                <div class="code-example">
+<!-- Contoh input berbahaya XSS -->
+<script>alert('Hacked!');</script>
+
+<!-- Cara mencegah: Selalu escape output -->
+<?php echo htmlspecialchars($user_input); ?>
+                </div>
+
+                <div class="security-tip">
+                    <strong>🛡️ Pencegahan XSS:</strong>
+                    1. Escape semua output user<br>
+                    2. Gunakan Content Security Policy<br>
+                    3. Validasi input di sisi server
+                </div>
+            </div>
+
+            <!-- CSRF (Cross-Site Request Forgery) -->
+            <div class="security-section">
+                <h2>CSRF (Cross-Site Request Forgery)</h2>
+                <p>CSRF memaksa pengguna yang sudah login untuk melakukan aksi tanpa sadar, seperti mengubah password atau mentransfer uang.</p>
+
+                <div class="code-example">
+<!-- Token CSRF untuk mencegah -->
+<form action="/transfer" method="POST">
+  <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+  <!-- form fields -->
+</form>
+                </div>
+            </div>
+
+            <!-- Password Security -->
+            <div class="security-section">
+                <h2>Keamanan Password</h2>
+                <p>Password yang lemah adalah pintu masuk utama hacker. Gunakan password kuat dan hash yang aman.</p>
+
+                <div class="code-example">
+// Hash password dengan bcrypt (PHP)
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+// Verifikasi password
+if (password_verify($password, $hashed_password)) {
+    // Login berhasil
+}
+                </div>
+
+                <div class="demo">
+                    <h3>Generator Password Kuat</h3>
+                    <button onclick="generatePassword()">Generate Password</button>
+                    <p id="passwordResult"></p>
+                </div>
+            </div>
+
+            <!-- File Upload Security -->
+            <div class="security-section">
+                <h2>Keamanan Upload File</h2>
+                <p>Upload file bisa menjadi celah keamanan jika tidak dikontrol. Hacker bisa upload file berbahaya seperti virus atau script.</p>
+
+                <div class="code-example">
+/* Validasi file upload (PHP) */
+$allowed_types = ['image/jpeg', 'image/png'];
+$max_size = 2 * 1024 * 1024; // 2MB
+
+if (!in_array($_FILES['file']['type'], $allowed_types)) {
+    die('Tipe file tidak diizinkan');
+}
+
+if ($_FILES['file']['size'] > $max_size) {
+    die('File terlalu besar');
+}
+                </div>
+            </div>
+
+            <!-- Best Practices -->
+            <div class="security-section">
+                <h2>Praktik Terbaik Keamanan Web</h2>
+                <ul>
+                    <li><strong>Update Software:</strong> Selalu update framework, library, dan server</li>
+                    <li><strong>Backup Rutin:</strong> Backup data penting secara berkala</li>
+                    <li><strong>Monitoring:</strong> Pantau log server untuk aktivitas mencurigakan</li>
+                    <li><strong>Edukasi:</strong> Latih diri tentang ancaman keamanan terbaru</li>
+                    <li><strong>Principle of Least Privilege:</strong> Berikan akses minimal yang diperlukan</li>
+                </ul>
+            </div>
+
+            <!-- Tools Keamanan -->
+            <div class="security-section">
+                <h2>Tools untuk Testing Keamanan</h2>
+                <p>Ada banyak tools gratis untuk memeriksa keamanan website Anda:</p>
+                <ul>
+                    <li><strong>OWASP ZAP:</strong> Scanner keamanan web open source</li>
+                    <li><strong>Burp Suite Community:</strong> Proxy untuk testing manual</li>
+                    <li><strong>Nmap:</strong> Scanner port dan service</li>
+                    <li><strong>SSL Labs:</strong> Test kekuatan SSL/TLS</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript untuk demo interaktif -->
+    <script>
+        // Fungsi untuk demo SQL Injection
+        function checkSQL() {
+            const input = document.getElementById('sqlInput').value;
+            const result = document.getElementById('sqlResult');
+
+            // Simulasi deteksi input berbahaya
+            if (input.includes("' OR '1'='1") || input.includes("'; DROP TABLE")) {
+                result.innerHTML = '<span style="color: red;">⚠️ Input berbahaya terdeteksi! Ini bisa menyebabkan SQL Injection.</span>';
+            } else {
+                result.innerHTML = '<span style="color: green;">✅ Input aman.</span>';
+            }
+        }
+
+        // Fungsi generator password
+        function generatePassword() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < 12; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('passwordResult').textContent = 'Password: ' + password;
+        }
+
+        // Demo XSS (aman karena menggunakan textContent)
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Halaman keamanan web dimuat dengan aman!');
+        });
+    </script>
+</body>
+</html>
