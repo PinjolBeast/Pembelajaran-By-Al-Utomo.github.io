@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Sistem Pembelajaran - HTML, CSS & JavaScript</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .category-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .category-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .category-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .category-card p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .quiz-question {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            background: #ebf5fb;
+        }
+
+        .option.selected {
+            border-color: #3498db;
+            background: #d4e6f1;
+        }
+
+        .option.correct {
+            border-color: #27ae60;
+            background: #d5f4e6;
+        }
+
+        .option.incorrect {
+            border-color: #e74c3c;
+            background: #fadbd8;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            margin: 0 20px;
+        }
+
+        .progress-fill {
+            height: 8px;
+            background: #3498db;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .progress-bg {
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+        }
+
+        .score-display {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 8px solid #ecf0f1;
+            border-top: 8px solid #3498db;
+            margin: 0 auto 20px;
+            position: relative;
+            animation: spin 2s linear infinite;
+        }
+
+        .score-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .feedback.correct {
+            background: #d5f4e6;
+            color: #27ae60;
+            border: 1px solid #a8e6cf;
+        }
+
+        .feedback.incorrect {
+            background: #fadbd8;
+            color: #e74c3c;
+            border: 1px solid #f5c6cb;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-weight: normal;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .quiz-results {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .results-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-item {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .result-item h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .result-item .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-container {
+                padding: 10px;
+            }
+
+            .category-selection {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .progress-bar {
+                margin: 0;
+            }
+
+            .results-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>🧠 Quiz Sistem Pembelajaran</h1>
+            <p>Test pengetahuan Anda tentang HTML, CSS, dan JavaScript</p>
+        </div>
+
+        <!-- Category Selection -->
+        <div id="category-selection" class="category-selection">
+            <div class="category-card" data-category="html">
+                <h3>📄 HTML</h3>
+                <p>Struktur dan elemen halaman web</p>
+            </div>
+            <div class="category-card" data-category="css">
+                <h3>🎨 CSS</h3>
+                <p>Styling dan layout halaman web</p>
+            </div>
+            <div class="category-card" data-category="javascript">
+                <h3>⚡ JavaScript</h3>
+                <p>Interaktivitas dan logika programming</p>
+            </div>
+        </div>
+
+        <!-- Quiz Interface -->
+        <div id="quiz-interface" class="hidden">
+            <div class="quiz-question">
+                <div class="question-text" id="question-text"></div>
+                <div class="options" id="options"></div>
+                <div class="feedback hidden" id="feedback"></div>
+            </div>
+
+            <div class="quiz-controls">
+                <button class="btn-secondary" id="prev-btn">Sebelumnya</button>
+                <div class="progress-bar">
+                    <div class="progress-bg">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+                <button class="btn-primary" id="next-btn">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="quiz-results" class="hidden">
+            <div class="quiz-results">
+                <h2>📊 Hasil Quiz</h2>
+                <div class="results-summary">
+                    <div class="result-item">
+                        <h4>Skor</h4>
+                        <div class="number" id="final-score">0</div>
+                    </div>
+                    <div class="result-item">
+                        <h4>Benar</h4>
+                        <div class="number" id="correct-answers">0</div>
+                    </div>
+                    <div class="result-item">
+                        <h4>Salah</h4>
+                        <div class="number" id="incorrect-answers">0</div>
+                    </div>
+                    <div class="result-item">
+                        <h4>Total Soal</h4>
+                        <div class="number" id="total-questions">0</div>
+                    </div>
+                </div>
+
+                <div class="score-display">
+                    <div class="score-circle">
+                        <div class="score-number" id="score-percentage">0%</div>
+                    </div>
+                    <h3 id="score-message">Bagus!</h3>
+                    <p id="score-description">Anda telah menyelesaikan quiz dengan baik.</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn-primary" id="retry-btn">Coba Lagi</button>
+                    <button class="btn-secondary" id="back-to-categories">Kembali ke Kategori</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/quiz.js"></script>
+</body>
+</html>

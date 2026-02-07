@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 AI Tutor Coding - Pembelajaran Interaktif</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .tutor-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tutor-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tutor-header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .tutor-header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .menu-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            border-color: #3498db;
+        }
+
+        .menu-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .menu-card p {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .menu-card .feature-list {
+            text-align: left;
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .menu-card .feature-list li {
+            margin-bottom: 3px;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .quiz-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-header h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            padding: 15px 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+            font-size: 16px;
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            background: #ebf5fb;
+        }
+
+        .option.selected {
+            border-color: #3498db;
+            background: #d4e6f1;
+        }
+
+        .option.correct {
+            border-color: #27ae60;
+            background: #d5f4e6;
+        }
+
+        .option.incorrect {
+            border-color: #e74c3c;
+            background: #fadbd8;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d5f4e6;
+            color: #27ae60;
+            border: 1px solid #a8e6cf;
+        }
+
+        .feedback.incorrect {
+            background: #fadbd8;
+            color: #e74c3c;
+            border: 1px solid #f5c6cb;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-weight: normal;
+            font-size: 14px;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .progress-container {
+            flex: 1;
+            margin: 0 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .quiz-results {
+            display: none;
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .quiz-results.active {
+            display: block;
+        }
+
+        .score-display {
+            margin-bottom: 30px;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 10px solid #ecf0f1;
+            border-top: 10px solid #3498db;
+            margin: 0 auto 20px;
+            position: relative;
+            animation: spin 2s linear infinite;
+        }
+
+        .score-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .score-message {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .score-description {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .back-to-menu {
+            margin-top: 30px;
+        }
+
+        .back-to-menu .btn-primary {
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .tutor-container {
+                padding: 10px;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .progress-container {
+                margin: 0;
+            }
+
+            .menu-card {
+                padding: 20px;
+            }
+
+            .menu-card h3 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tutor-container">
+        <div class="tutor-header">
+            <h1>🤖 AI Tutor Coding</h1>
+            <p>Pembelajaran Interaktif HTML, CSS, dan JavaScript dengan Quiz</p>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="menu-grid">
+            <div class="menu-card" onclick="startQuiz('html')">
+                <h3>🎯 Quiz HTML</h3>
+                <p>Test pengetahuan HTML Anda</p>
+                <ul class="feature-list">
+                    <li>10 soal interaktif</li>
+                    <li>Penjelasan detail</li>
+                    <li>Tracking progress</li>
+                </ul>
+                <button class="btn-primary">Mulai Quiz HTML</button>
+            </div>
+
+            <div class="menu-card" onclick="startQuiz('css')">
+                <h3>🎨 Quiz CSS</h3>
+                <p>Test pengetahuan CSS Anda</p>
+                <ul class="feature-list">
+                    <li>10 soal interaktif</li>
+                    <li>Penjelasan detail</li>
+                    <li>Tracking progress</li>
+                </ul>
+                <button class="btn-primary">Mulai Quiz CSS</button>
+            </div>
+
+            <div class="menu-card" onclick="startQuiz('javascript')">
+                <h3>⚡ Quiz JavaScript</h3>
+                <p>Test pengetahuan JavaScript Anda</p>
+                <ul class="feature-list">
+                    <li>10 soal interaktif</li>
+                    <li>Penjelasan detail</li>
+                    <li>Tracking progress</li>
+                </ul>
+                <button class="btn-primary">Mulai Quiz JavaScript</button>
+            </div>
+
+            <div class="menu-card" onclick="showProgress()">
+                <h3>📊 Progress</h3>
+                <p>Lihat progress pembelajaran Anda</p>
+                <ul class="feature-list">
+                    <li>Score per materi</li>
+                    <li>Statistik lengkap</li>
+                    <li>Riwayat belajar</li>
+                </ul>
+                <button class="btn-primary">Lihat Progress</button>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quiz-section" class="quiz-section">
+            <div class="quiz-header">
+                <h2 id="quiz-title">Quiz</h2>
+                <p id="quiz-description">Jawab pertanyaan berikut dengan jujur</p>
+            </div>
+
+            <div class="question-container">
+                <div class="question-number" id="question-number">Soal 1</div>
+                <div class="question-text" id="question-text"></div>
+                <div class="options" id="options"></div>
+                <div class="feedback" id="feedback"></div>
+            </div>
+
+            <div class="quiz-controls">
+                <button class="btn-secondary" id="prev-btn" onclick="previousQuestion()">Sebelumnya</button>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+                <button class="btn-primary" id="next-btn" onclick="nextQuestion()">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="quiz-results">
+            <div class="score-display">
+                <div class="score-circle">
+                    <div class="score-number" id="score-percentage">0%</div>
+                </div>
+                <div class="score-message" id="score-message">Bagus!</div>
+                <div class="score-description" id="score-description">Anda telah menyelesaikan quiz dengan baik.</div>
+            </div>
+
+            <div class="back-to-menu">
+                <button class="btn-primary" onclick="retryQuiz()">Coba Lagi</button>
+                <button class="btn-primary" onclick="backToMenu()">Menu Utama</button>
+                <button class="btn-secondary" onclick="changeCategory()">Ganti Kategori</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data
+        const quizData = {
+            html: [
+                { question: "Apa singkatan dari HTML?", options: ["HyperText Markup Language", "High Tech Modern Language", "Home Tool Markup Language", "Hyperlink and Text Markup Language"], correct: 0, explanation: "HTML adalah singkatan dari HyperText Markup Language, bahasa markup standar untuk membuat halaman web." },
+                { question: "Tag HTML mana yang digunakan untuk heading utama?", options: ["<p>", "<h1>", "<div>", "<span>"], correct: 1, explanation: "<h1> adalah tag untuk heading utama, yang paling penting dalam hierarki heading." },
+                { question: "Atribut mana yang digunakan untuk memberikan ID unik pada elemen HTML?", options: ["class", "id", "name", "type"], correct: 1, explanation: "Atribut 'id' memberikan identifikasi unik pada elemen HTML." },
+                { question: "Tag HTML mana yang digunakan untuk membuat paragraf?", options: ["<br>", "<p>", "<hr>", "<div>"], correct: 1, explanation: "Tag <p> digunakan untuk membuat paragraf teks." },
+                { question: "Apa fungsi dari tag <a> dalam HTML?", options: ["Membuat gambar", "Membuat link", "Membuat tabel", "Membuat form"], correct: 1, explanation: "Tag <a> digunakan untuk membuat hyperlink atau link ke halaman lain." },
+                { question: "Elemen HTML5 mana yang digunakan untuk navigasi?", options: ["<nav>", "<menu>", "<navigate>", "<navigation>"], correct: 0, explanation: "<nav> adalah elemen semantik HTML5 untuk area navigasi." },
+                { question: "Tag HTML mana yang digunakan untuk membuat tabel?", options: ["<table>", "<tab>", "<tbl>", "<grid>"], correct: 0, explanation: "<table> adalah tag utama untuk membuat tabel di HTML." },
+                { question: "Atribut 'alt' pada tag <img> berfungsi untuk...", options: ["Mengubah ukuran gambar", "Memberikan teks alternatif", "Mengubah format gambar", "Menambah border"], correct: 1, explanation: "Atribut alt memberikan teks alternatif untuk gambar jika gambar tidak dapat dimuat." },
+                { question: "Form method mana yang mengirim data melalui URL?", options: ["POST", "GET", "PUT", "DELETE"], correct: 1, explanation: "Method GET mengirim data melalui URL (query string)." },
+                { question: "Elemen HTML5 mana yang digunakan untuk konten utama?", options: ["<aside>", "<article>", "<main>"], correct: 2, explanation: "<main> adalah elemen semantik HTML5 untuk konten utama halaman." }
+            ],
+            css: [
+                { question: "Properti CSS mana yang digunakan untuk mengubah warna teks?", options: ["color", "background-color", "text-color", "font-color"], correct: 0, explanation: "Properti 'color' mengubah warna teks elemen HTML." },
+                { question: "Selector CSS mana yang memilih semua elemen <p>?", options: [".p", "#p", "p", "paragraph"], correct: 2, explanation: "Selector 'p' memilih semua elemen paragraf." },
+                { question: "Properti CSS untuk mengubah ukuran font adalah...", options: ["font-size", "text-size", "size", "font"], correct: 0, explanation: "font-size mengatur ukuran huruf." },
+                { question: "Nilai properti display 'none' akan...", options: ["Menyembunyikan elemen", "Menampilkan elemen", "Mengubah ukuran", "Mengubah warna"], correct: 0, explanation: "display: none menyembunyikan elemen dari tampilan." },
+                { question: "Properti CSS untuk memberikan margin di semua sisi adalah...", options: ["margin", "padding", "border", "spacing"], correct: 0, explanation: "margin mengatur ruang di luar elemen." },
+                { question: "Properti CSS Flexbox mana yang mengatur arah item?", options: ["flex-direction", "flex-wrap", "justify-content", "align-items"], correct: 0, explanation: "flex-direction mengatur arah (row/column) dari flex items." },
+                { question: "Selector CSS ':hover' digunakan untuk...", options: ["Elemen saat diklik", "Elemen saat di-hover", "Elemen saat difokus", "Elemen saat aktif"], correct: 1, explanation: ":hover memilih elemen saat kursor mouse berada di atasnya." },
+                { question: "Unit CSS 'rem' relatif terhadap...", options: ["Viewport", "Parent element", "Root element", "Current element"], correct: 2, explanation: "rem relatif terhadap ukuran font root element (biasanya <html>)." },
+                { question: "Fungsi CSS calc() digunakan untuk...", options: ["Animasi", "Perhitungan matematika", "Transformasi", "Gradient"], correct: 1, explanation: "calc() memungkinkan perhitungan matematika dalam nilai CSS." },
+                { question: "@media query dalam CSS digunakan untuk...", options: ["Animasi", "Responsive design", "Typography", "Color scheme"], correct: 1, explanation: "@media query membuat style responsif berdasarkan ukuran layar." }
+            ],
+            javascript: [
+                { question: "Keyword JavaScript mana yang digunakan untuk mendeklarasikan variabel yang bisa diubah?", options: ["const", "let", "var", "static"], correct: 1, explanation: "'let' mendeklarasikan variabel yang bisa diubah nilainya." },
+                { question: "Operator JavaScript untuk membandingkan nilai dan tipe data adalah...", options: ["==", "===", "!=", "!=="], correct: 1, explanation: "=== membandingkan baik nilai maupun tipe data (strict equality)." },
+                { question: "Method JavaScript untuk menampilkan pesan di console adalah...", options: ["alert()", "print()", "console.log()", "display()"], correct: 2, explanation: "console.log() menampilkan pesan di developer console." },
+                { question: "Tipe data JavaScript mana yang menyimpan true/false?", options: ["string", "number", "boolean", "array"], correct: 2, explanation: "Boolean menyimpan nilai true atau false." },
+                { question: "Struktur kontrol JavaScript untuk menjalankan kode berdasarkan kondisi adalah...", options: ["for", "while", "if", "switch"], correct: 2, explanation: "if statement menjalankan kode jika kondisi terpenuhi." },
+                { question: "Method array JavaScript untuk menambah elemen di akhir array adalah...", options: ["push()", "pop()", "shift()", "unshift()"], correct: 0, explanation: "push() menambah satu atau lebih elemen di akhir array." },
+                { question: "Fungsi JavaScript setTimeout() digunakan untuk...", options: ["Loop", "Conditional", "Delay eksekusi", "Error handling"], correct: 2, explanation: "setTimeout() menunda eksekusi kode selama waktu tertentu." },
+                { question: "DOM method untuk memilih elemen berdasarkan ID adalah...", options: ["getElementById()", "getElementsByClassName()", "querySelector()", "getElementsByTagName()"], correct: 0, explanation: "getElementById() memilih elemen tunggal berdasarkan atribut id." },
+                { question: "ES6 feature untuk template literal menggunakan...", options: ["''", "\"\"", "``", "//"], correct: 2, explanation: "Template literal menggunakan backticks (`) dan memungkinkan interpolasi." },
+                { question: "Promise dalam JavaScript menangani...", options: ["Error", "Async operations", "Loop", "DOM manipulation"], correct: 1, explanation: "Promise menangani operasi asynchronous seperti API calls." }
+            ]
+        };
+
+        let currentCategory = '';
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let questions = [];
+
+        function startQuiz(category) {
+            currentCategory = category;
+            questions = [...quizData[category]];
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('quiz-section').classList.add('active');
+            document.getElementById('results-section').classList.remove('active');
+
+            document.getElementById('quiz-title').textContent = `Quiz ${category.charAt(0).toUpperCase() + category.slice(1)}`;
+            document.getElementById('quiz-description').textContent = `Test pengetahuan ${category.charAt(0).toUpperCase() + category.slice(1)} Anda`;
+
+            showQuestion();
+            updateButtons();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById('question-number').textContent = `Soal ${currentQuestionIndex + 1}`;
+            document.getElementById('question-text').textContent = question.question;
+
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.textContent = option;
+                optionElement.onclick = () => selectOption(index);
+                optionsContainer.appendChild(optionElement);
+            });
+
+            document.getElementById('feedback').style.display = 'none';
+            updateProgress();
+
+            // Show previous answer if exists
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = optionsContainer.children[userAnswers[currentQuestionIndex]];
+                selectedOption.classList.add('selected');
+                showFeedback();
+            }
+        }
+
+        function selectOption(selectedIndex) {
+            userAnswers[currentQuestionIndex] = selectedIndex;
+
+            const options = document.querySelectorAll('.option');
+            options.forEach((opt, index) => {
+                opt.classList.remove('selected');
+                if (index === selectedIndex) {
+                    opt.classList.add('selected');
+                }
+            });
+
+            showFeedback();
+        }
+
+        function showFeedback() {
+            const question = questions[currentQuestionIndex];
+            const selectedAnswer = userAnswers[currentQuestionIndex];
+            const feedback = document.getElementById('feedback');
+
+            feedback.style.display = 'block';
+
+            const options = document.querySelectorAll('.option');
+            options[question.correct].classList.add('correct');
+
+            if (selectedAnswer === question.correct) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '<strong>✅ Benar!</strong><div class="explanation">' + question.explanation + '</div>';
+                if (!userAnswers.includes(selectedAnswer)) {
+                    score++;
+                }
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = '<strong>❌ Salah!</strong><div class="explanation">' + question.explanation + '</div>';
+                if (selectedAnswer !== undefined) {
+                    options[selectedAnswer].classList.add('incorrect');
+                }
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateButtons();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateButtons();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function updateButtons() {
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').textContent = currentQuestionIndex === questions.length - 1 ? 'Selesai' : 'Selanjutnya';
+        }
+
+        function showResults() {
+            document.getElementById('quiz-section').style.display = 'none';
+            document.getElementById('results-section').classList.add('active');
+
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('score-percentage').textContent = percentage + '%';
+
+            const scoreMessage = document.getElementById('score-message');
+            const scoreDescription = document.getElementById('score-description');
+
+            if (percentage >= 80) {
+                scoreMessage.textContent = '🎉 Luar Biasa!';
+                scoreDescription.textContent = 'Anda memiliki pemahaman yang sangat baik tentang materi ini.';
+            } else if (percentage >= 60) {
+                scoreMessage.textContent = '👍 Bagus!';
+                scoreDescription.textContent = 'Anda memiliki pemahaman yang baik, tapi masih bisa ditingkatkan.';
+            } else if (percentage >= 40) {
+                scoreMessage.textContent = '📚 Perlu Belajar Lagi';
+                scoreDescription.textContent = 'Anda perlu mempelajari materi ini lebih dalam.';
+            } else {
+                scoreMessage.textContent = '💪 Jangan Menyerah!';
+                scoreDescription.textContent = 'Teruslah belajar dan coba lagi untuk meningkatkan pemahaman Anda.';
+            }
+
+            // Save to localStorage
+            saveProgress();
+        }
+
+        function saveProgress() {
+            const progress = JSON.parse(localStorage.getItem('ai_tutor_progress') || '{}');
+            progress[currentCategory] = {
+                score: score,
+                totalQuestions: questions.length,
+                percentage: Math.round((score / questions.length) * 100),
+                date: new Date().toISOString()
+            };
+            localStorage.setItem('ai_tutor_progress', JSON.stringify(progress));
+        }
+
+        function showProgress() {
+            const progress = JSON.parse(localStorage.getItem('ai_tutor_progress') || '{}');
+            let progressHTML = '<h2>📊 Progress Pembelajaran</h2>';
+
+            if (Object.keys(progress).length === 0) {
+                progressHTML += '<p>Belum ada progress yang tersimpan. Mulai quiz terlebih dahulu!</p>';
+            } else {
+                progressHTML += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">';
+
+                for (const [category, data] of Object.entries(progress)) {
+                    progressHTML += `
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center;">
+                            <h3>${category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+                            <div style="font-size: 2em; font-weight: bold; color: #3498db; margin: 10px 0;">${data.percentage}%</div>
+                            <div style="color: #7f8c8d;">${data.score}/${data.totalQuestions} benar</div>
+                            <div style="color: #7f8c8d; font-size: 0.9em;">${new Date(data.date).toLocaleDateString()}</div>
+                        </div>
+                    `;
+                }
+                progressHTML += '</div>';
+            }
+
+            progressHTML += '<div style="text-align: center; margin-top: 30px;"><button class="btn-primary" onclick="backToMenu()">Kembali ke Menu</button></div>';
+
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('quiz-section').style.display = 'none';
+            document.getElementById('results-section').classList.remove('active');
+
+            // Create progress section
+            const progressSection = document.createElement('div');
+            progressSection.id = 'progress-section';
+            progressSection.className = 'quiz-results active';
+            progressSection.innerHTML = progressHTML;
+            document.querySelector('.tutor-container').appendChild(progressSection);
+        }
+
+        function retryQuiz() {
+            startQuiz(currentCategory);
+        }
+
+        function backToMenu() {
+            document.getElementById('main-menu').style.display = 'grid';
+            document.getElementById('quiz-section').classList.remove('active');
+            document.getElementById('results-section').classList.remove('active');
+
+            const progressSection = document.getElementById('progress-section');
+            if (progressSection) {
+                progressSection.remove();
+            }
+        }
+
+        function changeCategory() {
+            backToMenu();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved progress on page load
+            console.log('AI Tutor loaded successfully!');
+        });
+    </script>
+</body>
+</html>
